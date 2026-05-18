@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import { getSiteSettings } from "@/lib/data";
 
 export const metadata = {
-  title: "About | Aurora Ministry"
+  title: "About"
 };
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ export default async function AboutPage() {
   const settings = await getSiteSettings();
 
   return (
-    <div className="container-shell pt-36">
+    <div className="container-shell page-shell">
       <SectionHeading
         kicker={settings.aboutPageKicker}
         title={settings.aboutPageTitle}

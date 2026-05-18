@@ -15,14 +15,30 @@ const playfair = Playfair_Display({
   display: "swap"
 });
 
-export const metadata = {
-  title: "Aurora Ministry",
-  description: "A modern ministry website for retreats, worship, formation, and community.",
-  openGraph: {
-    title: "Aurora Ministry",
-    description: "Retreats, worship, formation, and community.",
-    type: "website"
-  }
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  const siteTitle = settings.siteTitle || "Ministry Website";
+  const description = settings.heroDescription || "A modern ministry website for retreats, worship, formation, and community.";
+
+  return {
+    title: {
+      default: siteTitle,
+      template: `%s | ${siteTitle}`
+    },
+    description,
+    openGraph: {
+      title: siteTitle,
+      description,
+      type: "website"
+    }
+  };
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#050505"
 };
 
 export const dynamic = "force-dynamic";
@@ -32,7 +48,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable}`}>
+      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <SiteChrome settings={settings}>{children}</SiteChrome>
       </body>
     </html>

@@ -7,7 +7,7 @@ import AdminShell from "@/components/admin/AdminShell";
 import DashboardOverview from "@/components/admin/DashboardOverview";
 
 export const metadata = {
-  title: "Admin Dashboard | Aurora Ministry"
+  title: "Admin Dashboard"
 };
 
 export const dynamic = "force-dynamic";

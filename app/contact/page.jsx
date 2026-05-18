@@ -3,7 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { getSiteSettings } from "@/lib/data";
 
 export const metadata = {
-  title: "Contact | Aurora Ministry"
+  title: "Contact"
 };
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ export default async function ContactPage() {
   const settings = await getSiteSettings();
 
   return (
-    <div className="container-shell pt-36">
+    <div className="container-shell page-shell">
       <SectionHeading kicker="Contact" title={settings.contactHeading} description="Reach out for retreat registration, speaking invitations, prayer, or partnership." />
       <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
         <div className="glass-panel rounded-[28px] p-7">

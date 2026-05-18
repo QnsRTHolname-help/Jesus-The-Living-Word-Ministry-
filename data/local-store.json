@@ -37,14 +37,49 @@
     "contactPhone": "+91 8217633535",
     "address": "Mangalore ",
     "footerText": "Lighting quiet paths toward renewal.",
+    "footerConnectTitle": "Connect",
     "footerLinks": [
       {
         "label": "Instagram",
-        "url": "https://instagram.com"
+        "url": "https://instagram.com",
+        "icon": "instagram",
+        "imageUrl": ""
       },
       {
         "label": "YouTube",
-        "url": "https://youtube.com"
+        "url": "https://youtube.com",
+        "icon": "youtube",
+        "imageUrl": ""
+      },
+      {
+        "label": "Facebook",
+        "url": "https://facebook.com",
+        "icon": "facebook",
+        "imageUrl": ""
+      },
+      {
+        "label": "WhatsApp",
+        "url": "https://wa.me/",
+        "icon": "whatsapp",
+        "imageUrl": ""
+      },
+      {
+        "label": "TikTok",
+        "url": "https://tiktok.com",
+        "icon": "tiktok",
+        "imageUrl": ""
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://linkedin.com",
+        "icon": "linkedin",
+        "imageUrl": ""
+      },
+      {
+        "label": "Email",
+        "url": "",
+        "icon": "mail",
+        "imageUrl": ""
       }
     ],
     "galleryImages": [

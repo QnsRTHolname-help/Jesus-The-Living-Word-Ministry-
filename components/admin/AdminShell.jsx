@@ -88,7 +88,7 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
           </div>
         </aside>
 
-        <section className="min-w-0 p-4 md:p-6 xl:p-8">
+        <section className="min-w-0 p-4 pb-24 md:p-6 md:pb-24 lg:pb-8 xl:p-8">
           <motion.header
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -110,6 +110,27 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
             {children}
           </motion.div>
         </section>
+
+        <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/82 px-3 py-2 backdrop-blur-2xl lg:hidden">
+          <div className="mx-auto grid max-w-md grid-cols-3 gap-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-medium transition ${
+                    active ? "bg-yellow-200 text-black" : "bg-white/[0.055] text-white/62 active:bg-white/12"
+                  }`}
+                >
+                  <Icon size={18} />
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
       </div>
     </main>
   );

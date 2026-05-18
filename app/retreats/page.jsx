@@ -3,7 +3,7 @@ import RetreatCard from "@/components/RetreatCard";
 import { getRetreats } from "@/lib/data";
 
 export const metadata = {
-  title: "Retreats | Aurora Ministry"
+  title: "Retreats"
 };
 
 export const dynamic = "force-dynamic";
@@ -12,7 +12,7 @@ export default async function RetreatsPage() {
   const retreats = await getRetreats();
 
   return (
-    <div className="container-shell pt-36">
+    <div className="container-shell page-shell">
       <SectionHeading
         kicker="Retreats"
         title="Upcoming experiences for renewal, silence, worship, and formation."

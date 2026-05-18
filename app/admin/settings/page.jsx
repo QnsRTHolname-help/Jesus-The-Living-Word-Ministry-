@@ -6,7 +6,7 @@ import { getAuthCookieName, verifyToken } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/data";
 
 export const metadata = {
-  title: "Settings Admin | Aurora Ministry"
+  title: "Settings Admin"
 };
 
 export const dynamic = "force-dynamic";
