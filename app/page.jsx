@@ -177,7 +177,7 @@ export default async function HomePage() {
         </Reveal>
       </section>
 
-      <section className="section-y container-shell pb-[max(3rem,calc(2rem+env(safe-area-inset-bottom)))]">
+      <section className="section-y container-shell pb-[max(8rem,calc(6rem+env(safe-area-inset-bottom)))] sm:pb-[max(3rem,calc(2rem+env(safe-area-inset-bottom)))]">
         <div className="grid overflow-hidden rounded-[clamp(1.25rem,3vw,2rem)] border border-white/10 bg-white/[0.045] lg:grid-cols-2">
           <div className="flex flex-col justify-center p-6 sm:p-8 md:p-12">
             <p className="section-kicker">Contact</p>

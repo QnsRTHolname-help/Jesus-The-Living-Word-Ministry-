@@ -86,7 +86,7 @@ export default function SiteEnhancements({ settings }) {
             exit={{ opacity: 0, y: 12, scale: 0.92 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
             onClick={scrollTop}
-            className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom,0px))] right-[max(1rem,env(safe-area-inset-right,0px))] z-[90] grid h-12 w-12 touch-manipulation place-items-center rounded-full border border-yellow-200/45 bg-gradient-to-br from-yellow-100/95 to-amber-600/90 text-[#16110a] shadow-[0_12px_40px_rgba(216,184,106,0.35)] transition hover:brightness-105 active:scale-95 sm:h-14 sm:w-14"
+            className="fixed bottom-[calc(max(1.25rem,env(safe-area-inset-bottom,0px))+4.75rem)] right-[max(1rem,env(safe-area-inset-right,0px))] z-[90] grid h-11 w-11 touch-manipulation place-items-center rounded-full border border-yellow-200/45 bg-gradient-to-br from-yellow-100/95 to-amber-600/90 text-[#16110a] shadow-[0_12px_40px_rgba(216,184,106,0.35)] transition hover:brightness-105 active:scale-95 sm:bottom-[max(1.25rem,env(safe-area-inset-bottom,0px))] sm:h-14 sm:w-14"
           >
             <ArrowUp size={22} strokeWidth={2.25} className="sm:h-6 sm:w-6" />
           </motion.button>
@@ -98,7 +98,7 @@ export default function SiteEnhancements({ settings }) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-[max(1rem,env(safe-area-inset-bottom,0px))] left-1/2 z-[88] flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/10 bg-black/58 p-1.5 shadow-[0_18px_70px_rgba(0,0,0,0.48)] backdrop-blur-2xl sm:gap-2 sm:p-2"
+          className="nav-pills-scroll fixed bottom-[max(0.75rem,env(safe-area-inset-bottom,0px))] left-1/2 z-[88] flex max-w-[calc(100vw-1rem)] -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full border border-white/10 bg-black/68 p-1.5 shadow-[0_18px_70px_rgba(0,0,0,0.48)] backdrop-blur-2xl sm:bottom-[max(1rem,env(safe-area-inset-bottom,0px))] sm:gap-2 sm:p-2"
         >
           {settings.quickActions.slice(0, 4).map((action, index) => {
             const Icon = actionIcons[action.icon] || LinkIcon;
@@ -108,7 +108,7 @@ export default function SiteEnhancements({ settings }) {
                 href={action.url || "#"}
                 whileHover={{ y: -3, scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
-                className="group inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.065] px-3 text-sm text-white/78 transition hover:border-yellow-200/40 hover:bg-yellow-200/12 hover:text-yellow-50 sm:px-4"
+                className="group inline-flex h-11 min-w-11 shrink-0 touch-manipulation items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.065] px-3 text-sm text-white/78 transition hover:border-yellow-200/40 hover:bg-yellow-200/12 hover:text-yellow-50 active:scale-95 sm:px-4"
               >
                 <Icon size={17} className="text-yellow-200" />
                 <span className="hidden max-w-24 truncate sm:inline">{action.label}</span>
