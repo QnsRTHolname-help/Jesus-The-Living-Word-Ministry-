@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+:root {
+  --background: #050505;
+  --foreground: #f7f5ef;
+  --muted: #a6a09a;
+  --gold: #d8b86a;
+  --wine: #7d263d;
+  --glass: rgba(255, 255, 255, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--foreground);
+  background:
+    radial-gradient(circle at 16% 8%, rgba(125, 38, 61, 0.24), transparent 34rem),
+    radial-gradient(circle at 78% 12%, rgba(216, 184, 106, 0.13), transparent 28rem),
+    linear-gradient(180deg, #050505 0%, #0a0908 46%, #050505 100%);
+  font-family: var(--font-inter), Arial, sans-serif;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  content: "";
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+.container-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin-inline: auto;
+}
+
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.085), rgba(255, 255, 255, 0.035));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(22px);
+}
+
+.premium-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-hover::after {
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(216, 184, 106, 0.18), transparent 34%);
+  transition: opacity 180ms ease;
+}
+
+.premium-hover:hover::after {
+  opacity: 1;
+}
+
+.soft-border {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.cinema-bg {
+  background:
+    linear-gradient(90deg, rgba(5, 5, 5, 0.94) 0%, rgba(5, 5, 5, 0.62) 46%, rgba(5, 5, 5, 0.92) 100%),
+    url("https://images.unsplash.com/photo-1507692049790-de58290a4334?auto=format&fit=crop&w=2400&q=85");
+  background-size: cover;
+  background-position: center;
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #f7df9a, #b68735 45%, #fff3bd);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  border: 1px solid rgba(247, 223, 154, 0.55);
+  border-radius: 999px;
+  padding: 0 1.25rem;
+  color: #16110a;
+  background: linear-gradient(135deg, #f5d984, #b98838);
+  box-shadow: 0 16px 50px rgba(216, 184, 106, 0.2);
+  transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+  box-shadow: 0 22px 70px rgba(216, 184, 106, 0.32);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0 1.25rem;
+  color: #f7f5ef;
+  background: rgba(255, 255, 255, 0.055);
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 184, 106, 0.4);
+  background: rgba(216, 184, 106, 0.08);
+}
+
+.input-field {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  color: #f7f5ef;
+  outline: none;
+  background: rgba(255, 255, 255, 0.06);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.input-field:focus {
+  border-color: rgba(216, 184, 106, 0.58);
+  box-shadow: 0 0 0 4px rgba(216, 184, 106, 0.08);
+}
+
+.section-kicker {
+  color: #d8b86a;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
