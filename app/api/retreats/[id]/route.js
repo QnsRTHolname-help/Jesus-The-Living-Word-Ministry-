@@ -29,7 +29,9 @@ export async function PUT(request, { params }) {
         description: body.description.trim(),
         date: body.date,
         location: body.location.trim(),
-        image: body.image || ""
+        image: body.image || "",
+        registrationEnabled: body.registrationEnabled !== undefined ? body.registrationEnabled : false,
+        googleSheetWebhook: body.googleSheetWebhook || ""
       },
       { new: true, runValidators: true }
     ).lean();

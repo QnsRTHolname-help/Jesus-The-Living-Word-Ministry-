@@ -1,6 +1,7 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import SectionHeading from "@/components/SectionHeading";
 import { getSiteSettings } from "@/lib/data";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
   title: "Contact"
@@ -14,19 +15,11 @@ export default async function ContactPage() {
   return (
     <div className="container-shell page-shell">
       <SectionHeading kicker="Contact" title={settings.contactHeading} description="Reach out for retreat registration, speaking invitations, prayer, or partnership." />
-      <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="glass-panel rounded-[28px] p-7">
-          <form className="grid gap-4">
-            <input className="input-field" placeholder="Name" />
-            <input className="input-field" type="email" placeholder="Email" />
-            <input className="input-field" placeholder="Subject" />
-            <textarea className="input-field min-h-36 resize-y" placeholder="Message" />
-            <button type="button" className="btn-primary justify-self-start">
-              Send message
-            </button>
-          </form>
+      <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] w-full max-w-full overflow-hidden">
+        <div className="glass-panel rounded-[28px] p-4 sm:p-7 w-full max-w-full overflow-hidden">
+          <ContactForm />
         </div>
-        <div className="grid gap-5">
+        <div className="grid gap-5 w-full max-w-full">
           {[
             [Mail, settings.contactEmail],
             [Phone, settings.contactPhone],

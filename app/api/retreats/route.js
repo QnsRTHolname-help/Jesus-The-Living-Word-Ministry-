@@ -37,7 +37,9 @@ export async function POST(request) {
       description: body.description.trim(),
       date: body.date,
       location: body.location.trim(),
-      image: body.image || ""
+      image: body.image || "",
+      registrationEnabled: body.registrationEnabled || false,
+      googleSheetWebhook: body.googleSheetWebhook || ""
     });
 
     return NextResponse.json({ retreat: serializeRetreat(retreat.toObject()) }, { status: 201 });

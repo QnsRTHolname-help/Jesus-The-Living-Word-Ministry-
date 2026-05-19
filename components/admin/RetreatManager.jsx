@@ -11,7 +11,9 @@ const emptyRetreat = {
   description: "",
   date: "",
   location: "",
-  image: ""
+  image: "",
+  registrationEnabled: false,
+  googleSheetWebhook: ""
 };
 
 function validateRetreat(form) {
@@ -19,6 +21,7 @@ function validateRetreat(form) {
   if (!form.description.trim()) return "Retreat description is required.";
   if (!form.date) return "Retreat date is required.";
   if (!form.location.trim()) return "Retreat location is required.";
+  if (form.registrationEnabled && !form.googleSheetWebhook.trim()) return "Google Sheet Webhook URL is required when registration is enabled.";
   return "";
 }
 
@@ -114,7 +117,9 @@ export default function RetreatManager({ initialRetreats }) {
       description: retreat.description,
       date: retreat.date?.slice(0, 10),
       location: retreat.location,
-      image: retreat.image || ""
+      image: retreat.image || "",
+      registrationEnabled: retreat.registrationEnabled || false,
+      googleSheetWebhook: retreat.googleSheetWebhook || ""
     });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -149,7 +154,35 @@ export default function RetreatManager({ initialRetreats }) {
               {uploading && <p className="mt-3 flex items-center gap-2 text-sm text-yellow-100/70"><LoaderCircle className="animate-spin" size={16} /> Uploading image...</p>}
               {form.image && <img src={form.image} alt="" className="mt-4 aspect-video w-full rounded-2xl object-cover" />}
             </div>
-            <div className="flex flex-wrap gap-3">
+            
+            <div className="rounded-2xl border border-white/10 bg-black/24 p-4 mt-2">
+              <label className="flex items-center gap-3 text-sm font-semibold text-white/90">
+                <input
+                  type="checkbox"
+                  checked={form.registrationEnabled}
+                  onChange={(e) => setForm({ ...form, registrationEnabled: e.target.checked })}
+                  className="h-5 w-5 rounded border-white/20 bg-black/40 text-yellow-200 focus:ring-yellow-200/50"
+                />
+                Enable Registration
+              </label>
+              
+              {form.registrationEnabled && (
+                <div className="mt-4 animate-in slide-in-from-top-2">
+                  <p className="text-sm text-white/62 mb-2">Google Sheet Webhook URL</p>
+                  <input
+                    className="input-field"
+                    placeholder="https://script.google.com/macros/s/.../exec"
+                    value={form.googleSheetWebhook}
+                    onChange={(e) => setForm({ ...form, googleSheetWebhook: e.target.value })}
+                  />
+                  <p className="text-xs text-white/42 mt-2">
+                    Enter the URL from your Google Apps Script deployment to send registrations directly to a Google Sheet.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-wrap gap-3 mt-2">
               <button className="btn-primary" disabled={saving}>
                 {saving ? <LoaderCircle className="animate-spin" size={17} /> : <Save size={17} />}
                 {saving ? "Saving..." : "Save retreat"}

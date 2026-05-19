@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, CalendarDays, MapPin } from "lucide-react";
 import RetreatShare from "@/components/RetreatShare";
+import RetreatRegistration from "@/components/RetreatRegistration";
 import { getRetreat } from "@/lib/data";
 
 export const dynamic = "force-dynamic";
@@ -69,9 +70,7 @@ export default async function RetreatDetailPage({ params }) {
               <MapPin size={18} className="mt-0.5 shrink-0 text-yellow-200" />
               <span className="leading-snug">{retreat.location}</span>
             </p>
-            <a href="/contact" className="btn-primary mt-6 w-full sm:mt-7">
-              Register interest
-            </a>
+            <RetreatRegistration retreat={retreat} />
           </aside>
         </div>
       </div>
