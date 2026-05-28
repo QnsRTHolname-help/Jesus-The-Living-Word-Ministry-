@@ -10,6 +10,7 @@ const actionIcons = {
   video: Video,
   mail: Mail,
   message: MessageCircle,
+  whatsapp: MessageCircle,
   link: LinkIcon
 };
 

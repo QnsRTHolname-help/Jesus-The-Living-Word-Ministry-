@@ -37,6 +37,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body[data-theme="light"] {
+  --background: #f8f5ee;
+  --foreground: #16110a;
+  color: #16110a;
+  background:
+    radial-gradient(circle at 16% 8%, rgba(216, 184, 106, 0.22), transparent 34rem),
+    radial-gradient(circle at 78% 12%, rgba(125, 38, 61, 0.1), transparent 28rem),
+    linear-gradient(180deg, #f8f5ee 0%, #efe8d8 46%, #f8f5ee 100%);
+}
+
+body[data-font-style="modern"] {
+  --font-playfair: var(--font-inter);
+}
+
+body[data-font-style="editorial"] {
+  letter-spacing: 0.005em;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -70,6 +88,25 @@ button,
 input,
 textarea {
   font: inherit;
+}
+
+select,
+textarea,
+input {
+  min-width: 0;
+}
+
+.input-reset {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  color: inherit;
+  outline: none;
+  background: transparent;
+}
+
+.input-reset::placeholder {
+  color: rgba(255, 255, 255, 0.38);
 }
 
 .container-shell {
@@ -214,11 +251,11 @@ textarea {
   justify-content: center;
   gap: 0.55rem;
   min-height: 2.875rem;
-  border: 1px solid rgba(247, 223, 154, 0.55);
+  border: 1px solid color-mix(in srgb, var(--gold) 62%, white 22%);
   border-radius: 999px;
   padding: 0 clamp(1rem, 3vw, 1.35rem);
   color: #16110a;
-  background: linear-gradient(135deg, #f5d984, #b98838);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 72%, white 20%), color-mix(in srgb, var(--gold) 72%, #6b3d12 28%));
   box-shadow: 0 16px 50px rgba(216, 184, 106, 0.2);
   transition: transform 200ms ease, box-shadow 200ms ease, filter 200ms ease;
 }
@@ -294,7 +331,7 @@ select.input-field {
 }
 
 .section-kicker {
-  color: #d8b86a;
+  color: var(--gold);
   font-size: clamp(0.7rem, 1.5vw, 0.78rem);
   font-weight: 700;
   letter-spacing: 0.16em;

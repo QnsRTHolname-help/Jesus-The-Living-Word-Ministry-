@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { CalendarDays, Home, LayoutDashboard, LogOut, Menu, Settings, Sparkles, X, Bell } from "lucide-react";
+import { CalendarDays, Home, LayoutDashboard, LogOut, Menu, Settings, Sparkles, UserCog, X, Bell } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/notifications", label: "Notifications", icon: Bell },
+  { href: "/admin/notifications", label: "Inbox", icon: Bell },
   { href: "/admin/retreats", label: "Retreats", icon: CalendarDays },
-  { href: "/admin/settings", label: "Settings", icon: Settings }
+  { href: "/admin/settings", label: "Settings", icon: Settings },
+  { href: "/admin/users", label: "Admins", icon: UserCog }
 ];
 
 export default function AdminShell({ children, title, eyebrow, adminEmail, settings }) {
@@ -40,6 +41,11 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
               name: data.latest.name,
               subject: data.latest.subject || "(No Subject)"
             });
+            if ("Notification" in window && Notification.permission === "granted") {
+              new Notification("New ministry message", {
+                body: `${data.latest.name}: ${data.latest.subject || "Contact message"}`
+              });
+            }
             // Automatically clear toast after 5 seconds
             setTimeout(() => setToast(null), 5000);
           }
@@ -54,11 +60,14 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
   useEffect(() => {
     // Initial fetch
     fetchUnread(true);
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission().catch(() => {});
+    }
 
     // Set up polling interval
     const interval = setInterval(() => {
       fetchUnread(false);
-    }, 5000);
+    }, 3000);
 
     // Listen for custom events to trigger instant updates when a user acts on notifications
     const handleUpdated = () => fetchUnread(true);
@@ -165,7 +174,7 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
         </section>
 
         <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-white/10 bg-black/82 px-3 py-2 backdrop-blur-2xl lg:hidden">
-          <div className="mx-auto grid max-w-md grid-cols-4 gap-2">
+          <div className="nav-pills-scroll mx-auto flex max-w-md gap-2 overflow-x-auto">
             {navItems.map((item) => {
               const Icon = item.icon;
               const active = pathname === item.href;
@@ -175,7 +184,7 @@ export default function AdminShell({ children, title, eyebrow, adminEmail, setti
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative flex min-h-14 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-medium transition ${
+                  className={`relative flex min-h-14 min-w-[4.5rem] flex-col items-center justify-center gap-1 rounded-2xl px-2 text-[11px] font-medium transition ${
                     active ? "bg-yellow-200 text-black" : "bg-white/[0.055] text-white/62 active:bg-white/12"
                   }`}
                 >

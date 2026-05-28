@@ -9,10 +9,10 @@ export async function GET(request) {
 
   try {
     await connectDb();
-    const count = await ContactSubmission.countDocuments({ isRead: false });
+    const count = await ContactSubmission.countDocuments({ isRead: false, isArchived: { $ne: true } });
     
     // Also return the most recent notification ID and title to check if a new one arrived
-    const latest = await ContactSubmission.findOne({ isRead: false }).sort({ createdAt: -1 }).select("_id name subject").lean();
+    const latest = await ContactSubmission.findOne({ isRead: false, isArchived: { $ne: true } }).sort({ createdAt: -1 }).select("_id name subject").lean();
 
     return NextResponse.json({ 
       count, 

@@ -8,6 +8,15 @@ export default function Footer({ settings }) {
   const links = normalizeFooterLinks(settings?.footerLinks?.length ? settings.footerLinks : defaultFooterLinks);
   const connectTitle = settings?.footerConnectTitle || "Connect";
   const contactEmail = settings?.contactEmail || "hello@auroraministry.org";
+  const exploreLinks =
+    settings?.navigationLinks?.filter((link) => link?.href && link?.label) || [
+      { href: "/about", label: "About" },
+      { href: "/webex", label: "Webex" },
+      { href: "/recent-prayers", label: settings?.prayersNavLabel || "Recent Prayers" },
+      { href: "/retreats", label: "Retreats" },
+      { href: "/gallery", label: "Gallery" },
+      { href: "/contact", label: "Contact" }
+    ];
 
   return (
     <footer className="mt-16 border-t border-white/10 bg-gradient-to-b from-black/25 to-black/50 pb-[env(safe-area-inset-bottom,0px)] sm:mt-20 lg:mt-24">
@@ -21,24 +30,11 @@ export default function Footer({ settings }) {
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-white/90 sm:text-sm sm:normal-case sm:tracking-normal">Explore</p>
           <div className="mt-4 grid gap-1.5 text-sm text-white/58 sm:gap-2">
-            <Link href="/about" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              About
-            </Link>
-            <Link href="/webex" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              Webex
-            </Link>
-            <Link href="/recent-prayers" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              {settings?.prayersNavLabel || "Recent Prayers"}
-            </Link>
-            <Link href="/retreats" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              Retreats
-            </Link>
-            <Link href="/gallery" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              Gallery
-            </Link>
-            <Link href="/contact" className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
-              Contact
-            </Link>
+            {exploreLinks.slice(0, 8).map((link) => (
+              <Link key={`${link.href}-${link.label}`} href={link.href} className="min-h-10 touch-manipulation rounded-lg py-2 transition-colors hover:text-white/88 sm:inline-block sm:min-h-0 sm:py-0">
+                {link.href === "/recent-prayers" ? settings?.prayersNavLabel || link.label : link.label}
+              </Link>
+            ))}
           </div>
         </div>
         <div className="sm:col-span-2 lg:col-span-1">

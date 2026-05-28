@@ -6,11 +6,12 @@ import { useState } from "react";
 
 export default function GalleryGrid({ images }) {
   const [active, setActive] = useState(null);
+  const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
 
   return (
     <>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 lg:gap-5">
-        {images.map((image, index) => (
+        {safeImages.map((image, index) => (
           <motion.button
             key={`${image}-${index}`}
             type="button"
@@ -28,6 +29,11 @@ export default function GalleryGrid({ images }) {
             </span>
           </motion.button>
         ))}
+        {!safeImages.length && (
+          <div className="col-span-full rounded-[24px] border border-white/10 bg-white/[0.045] p-8 text-center text-sm text-white/52">
+            No gallery photos have been published yet.
+          </div>
+        )}
       </div>
 
       <AnimatePresence>

@@ -14,10 +14,14 @@ export default async function ContactPage() {
 
   return (
     <div className="container-shell page-shell">
-      <SectionHeading kicker="Contact" title={settings.contactHeading} description="Reach out for retreat registration, speaking invitations, prayer, or partnership." />
+      <SectionHeading
+        kicker="Contact"
+        title={settings.contactHeading}
+        description={settings.contactIntro || "Reach out for retreat registration, speaking invitations, prayer, or partnership."}
+      />
       <div className="mt-12 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] w-full max-w-full overflow-hidden">
         <div className="glass-panel rounded-[28px] p-4 sm:p-7 w-full max-w-full overflow-hidden">
-          <ContactForm />
+          <ContactForm settings={settings} />
         </div>
         <div className="grid gap-5 w-full max-w-full">
           {[

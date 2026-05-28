@@ -1,17 +1,17 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import AdminShell from "@/components/admin/AdminShell";
-import NotificationManager from "@/components/admin/NotificationManager";
+import AdminUserManager from "@/components/admin/AdminUserManager";
 import { getAuthCookieName, verifyToken } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/data";
 
 export const metadata = {
-  title: "Notifications Admin"
+  title: "Admin Users"
 };
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminNotificationsPage() {
+export default async function AdminUsersPage() {
   const cookieStore = await cookies();
   const admin = verifyToken(cookieStore.get(getAuthCookieName())?.value);
 
@@ -20,8 +20,8 @@ export default async function AdminNotificationsPage() {
   const settings = await getSiteSettings();
 
   return (
-    <AdminShell title="Admin Inbox" eyebrow="Messages, replies, and ministry care" adminEmail={admin.email} settings={settings}>
-      <NotificationManager />
+    <AdminShell title="Admin Users" eyebrow="Access and permissions" adminEmail={admin.email} settings={settings}>
+      <AdminUserManager />
     </AdminShell>
   );
 }

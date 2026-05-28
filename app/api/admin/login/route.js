@@ -23,12 +23,14 @@ export async function POST(request) {
 
     if (!admin && normalizedEmail === process.env.ADMIN_EMAIL?.toLowerCase() && plainPassword === process.env.ADMIN_PASSWORD) {
       admin = await Admin.create({
+        name: "Owner Admin",
         email: normalizedEmail,
-        password: await bcrypt.hash(plainPassword, 12)
+        password: await bcrypt.hash(plainPassword, 12),
+        role: "owner"
       });
     }
 
-    if (!admin) {
+    if (!admin || admin.isActive === false) {
       return NextResponse.json({ message: "Invalid admin credentials." }, { status: 401 });
     }
 
@@ -36,6 +38,9 @@ export async function POST(request) {
     if (!valid) {
       return NextResponse.json({ message: "Invalid admin credentials." }, { status: 401 });
     }
+
+    admin.lastLoginAt = new Date();
+    await admin.save();
 
     const token = signAdminToken(admin);
     const response = NextResponse.json({ ok: true, admin: { email: admin.email } });

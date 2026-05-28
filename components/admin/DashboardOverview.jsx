@@ -1,20 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CalendarClock, CalendarDays, Clock3, Database, Settings2 } from "lucide-react";
+import { CalendarClock, CalendarDays, Clock3, Database, Inbox, Settings2 } from "lucide-react";
 
 function formatDate(value) {
   if (!value) return "Not available";
   return new Date(value).toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" });
 }
 
-export default function DashboardOverview({ retreats, settings, databaseStatus }) {
+export default function DashboardOverview({ retreats, settings, databaseStatus, contactStats }) {
   const now = new Date();
   const upcoming = retreats.filter((retreat) => new Date(retreat.date) >= now);
   const nextRetreat = upcoming[0];
   const cards = [
     { label: "Total retreats", value: retreats.length, icon: CalendarDays },
     { label: "Upcoming retreats", value: upcoming.length, icon: CalendarClock },
+    { label: "Unread inbox", value: contactStats?.unread || 0, icon: Inbox },
     { label: "Next retreat", value: nextRetreat ? formatDate(nextRetreat.date) : "None", icon: Clock3 },
     { label: "Settings edited", value: formatDate(settings?.updatedAt), icon: Settings2 },
     { label: "Storage mode", value: databaseStatus?.ok ? "MongoDB" : "Local", icon: Database }
@@ -47,7 +48,7 @@ export default function DashboardOverview({ retreats, settings, databaseStatus }
         </div>
       </motion.section>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
         {cards.map((card, index) => {
           const Icon = card.icon;
           return (

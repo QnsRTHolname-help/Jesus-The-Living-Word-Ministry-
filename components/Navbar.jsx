@@ -6,9 +6,12 @@ import { motion } from "framer-motion";
 import { Menu, Sparkles, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
-const mainLinks = [
+const defaultNavigationLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
+  { href: "/webex", label: "Webex", highlight: true },
+  { href: "/recent-prayers", label: "Recent Prayers", highlight: true },
+  { href: "/retreats", label: "Retreats", highlight: true },
   { href: "/gallery", label: "Gallery" },
   { href: "/contact", label: "Contact" }
 ];
@@ -20,7 +23,7 @@ function NavPill({ links, pathname, layoutId }) {
     <motion.div className="flex shrink-0 flex-nowrap items-center gap-0.5 rounded-full border border-white/10 bg-white/[0.045] p-1 shadow-inner shadow-black/20 backdrop-blur-xl sm:gap-1">
       {links.map((link) => {
         const active = pathname === link.href;
-        const isTitleBar = titleBarHrefs.includes(link.href);
+        const isTitleBar = link.highlight || titleBarHrefs.includes(link.href);
         return (
           <Link
             key={link.href}
@@ -55,18 +58,23 @@ export default function Navbar({ settings }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const retreatBarLinks = useMemo(
-    () => [
-      { href: "/webex", label: "Webex" },
-      { href: "/recent-prayers", label: settings?.prayersNavLabel || "Recent Prayers" },
-      { href: "/retreats", label: "Retreats" }
-    ],
-    [settings?.prayersNavLabel]
-  );
+  const configuredLinks = useMemo(() => {
+    const links = settings?.navigationLinks?.length ? settings.navigationLinks : defaultNavigationLinks;
+    return links
+      .filter((link) => link?.href && link?.label)
+      .map((link) => ({
+        href: link.href,
+        label: link.href === "/recent-prayers" ? settings?.prayersNavLabel || link.label : link.label,
+        highlight: Boolean(link.highlight)
+      }));
+  }, [settings?.navigationLinks, settings?.prayersNavLabel]);
+
+  const mainLinks = useMemo(() => configuredLinks.filter((link) => !link.highlight), [configuredLinks]);
+  const retreatBarLinks = useMemo(() => configuredLinks.filter((link) => link.highlight), [configuredLinks]);
 
   const mobileLinks = useMemo(
     () => [...mainLinks.slice(0, 2), ...retreatBarLinks, ...mainLinks.slice(2)],
-    [retreatBarLinks]
+    [mainLinks, retreatBarLinks]
   );
 
   useEffect(() => {
@@ -107,9 +115,11 @@ export default function Navbar({ settings }) {
           <div className="nav-pills-scroll flex max-w-[min(100%,28rem)] justify-end overflow-x-auto overscroll-x-contain lg:max-w-none lg:overflow-visible xl:max-w-none">
             <NavPill links={mainLinks} pathname={pathname} layoutId="nav-pill-main" />
           </div>
-          <div className="nav-pills-scroll flex max-w-[min(100%,22rem)] shrink-0 justify-end overflow-x-auto overscroll-x-contain lg:max-w-none lg:overflow-visible">
-            <NavPill links={retreatBarLinks} pathname={pathname} layoutId="nav-pill-retreats" />
-          </div>
+          {!!retreatBarLinks.length && (
+            <div className="nav-pills-scroll flex max-w-[min(100%,22rem)] shrink-0 justify-end overflow-x-auto overscroll-x-contain lg:max-w-none lg:overflow-visible">
+              <NavPill links={retreatBarLinks} pathname={pathname} layoutId="nav-pill-retreats" />
+            </div>
+          )}
         </div>
 
         <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
@@ -144,7 +154,7 @@ export default function Navbar({ settings }) {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={`block min-h-12 touch-manipulation rounded-xl px-4 py-3.5 text-[15px] leading-snug transition-colors active:bg-white/15 ${
-                  titleBarHrefs.includes(link.href) ? "font-[var(--font-playfair)] font-semibold text-yellow-200" : "text-white/82"
+                  link.highlight || titleBarHrefs.includes(link.href) ? "font-[var(--font-playfair)] font-semibold text-yellow-200" : "text-white/82"
                 }`}
               >
                 {link.label}
